@@ -1,0 +1,10 @@
+.bg-primary {
+    /* background-color: #4b4b4b !important; */
+    background-color: transparent !important;
+    background: linear-gradient(to right, #3d3d3d, #4b4b4b, #3d3d3d);
+}
+
+a {
+    color: #fffa65;
+    text-decoration: none;
+}

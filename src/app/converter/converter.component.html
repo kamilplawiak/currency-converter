@@ -1,0 +1,85 @@
+<div class="container w-50 my-4">
+    <form
+        [formGroup]="form">
+        <div
+            class="form-group my-2"
+            formGroupName="currencyFrom">
+            <h2>Convert from</h2>
+            <mat-form-field
+                appearance="fill"
+                color="primary"
+                class="mx-2">
+                <input
+                    matInput
+                    type="text"
+                    placeholder="Amount"
+                    class="d-inline mx-2"
+                    formControlName="amount"
+                    (input)="onInputFromChange()">
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="fill"
+                color="primary"
+                class="mx-2">
+                <mat-select
+                class="d-inline mx-2"
+                (selectionChange)="onSelectChange()"
+                formControlName="symbol">
+                    <mat-option
+                        value="{{ currency }}"
+                        *ngFor="let currency of currencies">
+                        {{ currency }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+        <h2>Convert to</h2>
+        <div class="form-group my-2"
+            *ngFor="let form of getCurrenciesArray().controls; index as i"
+            formArrayName="currenciesTo">
+
+            <div
+                [formGroupName]="i">
+                <mat-form-field
+                    appearance="fill"
+                    color="primary"
+                    class="mx-2">
+                    <input
+                        matInput
+                        type="text"
+                        placeholder="Amount"
+                        class="d-inline mx-2"
+                        formControlName="amount"
+                        (input)="onInputToChange(i, $event.target.value)">
+                </mat-form-field>
+
+                <mat-form-field
+                    appearance="fill"
+                    color="primary"
+                    class="mx-2">
+                    <mat-select
+                        class="d-inline mx-2"
+                        (selectionChange)="onSelectChange()"
+                        formControlName="symbol">
+                        <mat-option
+                                value="{{ currency }}"
+                                *ngFor="let currency of currencies">
+                                {{ currency }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <button
+            mat-raised-button
+            color="primary"
+            class="ms-2 my-3"
+            (click)="addCurrency()">
+            Add another currency
+        </button>
+    </form>
+</div>

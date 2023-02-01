@@ -1,0 +1,83 @@
+<div class="container w-50 my-4">
+    <h2>Your funds</h2>
+    <form
+        [formGroup]="form">
+        <div
+            class="form-group my-2"
+            *ngFor="let group of getFunds().controls; index as i"
+            formArrayName="allFunds">
+            <div
+                [formGroupName]="i">
+                <mat-form-field
+                    appearance="fill"
+                    color="primary"
+                    class="mx-2">
+                    <input
+                        matInput
+                        type="text"
+                        class="mx-2 d-inline"
+                        placeholder="Amount of currency"
+                        formControlName="amount"
+                        (input)="checkCurrencyInput(group, i)"
+                        #tooltip="matTooltip"
+                        matTooltip='Please enter a correct value!'
+                        [matTooltipDisabled]="true"
+                        matTooltipPosition="left">
+                </mat-form-field>
+
+
+                <mat-form-field
+                    appearance="fill"
+                    color="primary"
+                    class="mx-2">
+                    <mat-select 
+                        class="mx-2 d-inline"
+                        (selectionChange)="onSelectChange($event.target.value)"
+                        formControlName="currency">
+                        <mat-option
+                            *ngFor="let currency of currencyService.getCurrencies()"
+                            [value]="currency">
+                            {{ currency }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <mat-icon
+            class="ms-2 mb-3 d-block"
+            style="cursor: pointer;"
+            color="accent"
+            aria-hidden="false"
+            fontIcon="add_circle_outline"
+            (click)="onCurrencyAdd()">
+         </mat-icon>
+
+        <mat-divider></mat-divider>
+
+        <button
+            mat-raised-button
+            color="primary"
+            class="ms-2 mt-4"
+            type="submit"
+            (click)="onSubmit()"
+            [disabled]="!form.valid">
+            Calculate your balance
+        </button>
+    </form>
+
+    <div
+        *ngIf="submitted">
+        <h3 class="mt-3">Your balance is:</h3>
+        <div
+            class="d-flex justify-content-center align-items-center flex-wrap mb-5">
+            <p
+                style="flex: 50%"
+                *ngFor="let currency of currencyService.getCurrencies()">
+                <span style="color: #c2185b">{{ currency }}</span>
+                <span style="color: #b0bec5; font-style: italic">: {{ formData[currency] }}</span>
+            </p>
+        </div>
+
+    </div>
+</div>
