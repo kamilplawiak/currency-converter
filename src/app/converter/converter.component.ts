@@ -18,26 +18,24 @@ export class ConverterComponent implements AfterViewInit, OnInit {
       [symbol: string]: number
     }
   };
-  form: FormGroup;
   currencyFromValue: number;
   currenciesToValues: number[] = [];
+  form = new FormGroup({
+    'currencyFrom': new FormGroup({
+      'amount': new FormControl('1'),
+      'symbol': new FormControl('USD')
+    }),
+    'currenciesTo': new FormArray([
+      new FormGroup({
+        'amount': new FormControl('1'),
+        'symbol': new FormControl('USD')
+      })
+    ])
+  });
 
   constructor(private converter: ConverterService, private currencyService: CurrencyService) {}
 
   ngOnInit() {
-    this.form = new FormGroup({
-      'currencyFrom': new FormGroup({
-        'amount': new FormControl('1'),
-        'symbol': new FormControl('USD')
-      }),
-      'currenciesTo': new FormArray([
-        new FormGroup({
-          'amount': new FormControl('1'),
-          'symbol': new FormControl('USD')
-        })
-      ])
-    });
-
     this.currencyService.currentExchangeRate.subscribe((obj) => {
       this.exchangeRate = obj;
     })
