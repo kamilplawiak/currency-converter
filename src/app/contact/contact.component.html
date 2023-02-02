@@ -1,0 +1,212 @@
+<div class="container w-50 my-4">
+    <form [formGroup]="form">
+        <div class="d-flex justify-content-center align-items-center flex-wrap">
+            <mat-form-field
+                style="flex: 45%"
+                class="mx-2"
+                appearance="fill"
+                color="primary"
+                [hideRequiredMarker]="hideRequired">
+                <mat-label>
+                    First name
+                </mat-label>
+                <input
+                    [inputMask]="maxLengthMask"
+                    (input)="onInputChange()"
+                    matInput
+                    type="text"
+                    placeholder="Jan"
+                    formControlName="firstName">
+            </mat-form-field>
+
+            <mat-form-field
+                style="flex: 45%"
+                class="mx-2"
+                appearance="fill"
+                color="primary"
+                [hideRequiredMarker]="hideRequired">
+                <mat-label>
+                    Last name
+                </mat-label>
+                <input
+                    [inputMask]="maxLengthMask"
+                    (input)="onInputChange()"
+                    matInput
+                    type="text"
+                    placeholder="Kowalski"
+                    formControlName="lastName">
+            </mat-form-field>
+
+            <mat-form-field
+                style="flex: 45%"
+                class="mx-2"
+                appearance="fill"
+                color="primary"
+                [hideRequiredMarker]="hideRequired">
+                <mat-label>
+                    E-mail
+                </mat-label>
+                <input
+                    (input)="onInputChange()"
+                    matInput
+                    type="text"
+                    placeholder="jan.kowalski@gmail.com"
+                    formControlName="email">
+            </mat-form-field>
+
+            <mat-form-field
+                style="flex: 45%"
+                class="mx-2"
+                appearance="fill"
+                color="primary"
+                [hideRequiredMarker]="hideRequired">
+                <mat-label>
+                    Date of birth
+                </mat-label>
+                <input
+                    (input)="onInputChange()"
+                    matInput
+                    type="date"
+                    formControlName="birthday">
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="fill"
+                color="primary"
+                style="flex: 45%"
+                class="mx-2"
+                [hideRequiredMarker]="hideRequired">
+                <mat-label
+                    for="voivodeship">
+                    Voivodeship
+                </mat-label>
+                <mat-select
+                    name="voivodeship"
+                    formControlName="voivodeship"
+                    (selectionChange)="onInputChange()">
+                    <mat-option
+                        *ngFor="let voivodeship of voivodeships"
+                        [value]="voivodeship">
+                        {{ voivodeship }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="fill"
+                color="primary"
+                style="flex: 45%"
+                class="mx-2"
+                [hideRequiredMarker]="hideRequired"
+                *ngIf="form.get('voivodeship').value">
+                <mat-label>
+                    City
+                </mat-label>
+                <mat-select
+                    formControlName="city"
+                    (selectionChange)="onInputChange()">
+                    <mat-option
+                        *ngFor="let city of cities[form.get('voivodeship').value]"
+                        [value]="city">
+                        {{ city }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="fill"
+                color="primary"
+                class="mx-2"
+                style="flex: 45%"
+                [hideRequiredMarker]="hideRequired"
+                *ngIf="form.get('city').value">
+                <mat-label>
+                    Address
+                </mat-label>
+                <input
+                    [inputMask]="maxLengthWithDigitsMask"
+                    (input)="onInputChange()"
+                    matInput
+                    type="text"
+                    formControlName="address">
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="fill"
+                color="primary"
+                class="mx-2"
+                style="flex: 45%"
+                [hideRequiredMarker]="hideRequired"
+                *ngIf="form.get('city').value">
+                <mat-label>
+                    Postal code
+                </mat-label>
+                <input
+                    [inputMask]="postalCodeMask"
+                    (input)="onInputChange()"
+                    matInput
+                    type="text"
+                    formControlName="postalCode">
+        </mat-form-field>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="d-flex mt-3 justify-content-center">
+            <button
+                mat-raised-button
+                color="primary"
+                [disabled]="!isFormCorrect"
+                type="submit"
+                (click)="onSubmit()">
+                Submit
+            </button>
+        </div>
+    </form>
+
+    <div
+        class="my-4 d-flex justify-content-center align-items-center flex-wrap" 
+        *ngIf="isFormSubmitted">
+        <h3 style="flex: 100%">Your data:</h3>
+        <p
+            class="mx-2"
+            style="flex: 45%">
+            <b>First name: </b> {{ formData.firstName }}
+        </p>
+        <p
+            class="mx-2"
+            style="flex: 45%">
+            <b>Last name: </b> {{ formData.lastName }}
+        </p>
+        <p
+            class="mx-2"
+            style="flex: 45%">
+            <b>E-mail: </b> {{ formData.email }}
+        </p>
+        <p
+            class="mx-2"
+            style="flex: 45%">
+            <b>Date of birth: </b> {{ formData.birthday }}
+        </p>
+        <p
+            class="mx-2"
+            style="flex: 45%">
+            <b>Voivodeship: </b> {{ formData.voivodeship }}
+        </p>
+        <p
+            class="mx-2"
+            style="flex: 45%">
+            <b>City: </b> {{ formData.city }}
+        </p>
+        <p
+            class="mx-2"
+            style="flex: 45%">
+            <b>Address: </b> {{ formData.address }}
+        </p>
+        <p
+            class="mx-2"
+            style="flex: 45%">
+            <b>Postal code: </b> {{ formData.postalCode }}
+        </p>
+    </div>
+</div>

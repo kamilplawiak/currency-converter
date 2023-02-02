@@ -22,12 +22,12 @@ export class ConverterComponent implements AfterViewInit, OnInit {
   currenciesToValues: number[] = [];
   form = new FormGroup({
     'currencyFrom': new FormGroup({
-      'amount': new FormControl('1'),
+      'amount': new FormControl(1),
       'symbol': new FormControl('USD')
     }),
     'currenciesTo': new FormArray([
       new FormGroup({
-        'amount': new FormControl('1'),
+        'amount': new FormControl(1),
         'symbol': new FormControl('USD')
       })
     ])
@@ -50,7 +50,7 @@ export class ConverterComponent implements AfterViewInit, OnInit {
   }
 
   onInputFromChange(exclude: number = -1) {
-    this.currencyFromValue = this.form.get('currencyFrom').get('amount').value;
+    this.currencyFromValue = +this.form.get('currencyFrom').get('amount').value;
 
     for(let group of this.getCurrenciesArray().controls) {
       if(this.getCurrenciesArray().controls.indexOf(group) === exclude) continue;
