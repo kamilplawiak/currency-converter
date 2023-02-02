@@ -1,0 +1,203 @@
+<div class="container w-50 my-4">
+    <form [formGroup]="form">
+        <div class="d-flex justify-content-center align-items-center flex-wrap">
+            <div
+                style="flex: 45%"
+                class="mx-2 my-2">
+                <label>
+                    First name
+                </label>
+                <input
+                    [inputMask]="maxLengthMask"
+                    [ngClass]="{ invalid: form.get('firstName').errors }"
+                    (input)="onInputChange()"
+                    type="text"
+                    placeholder="Jan"
+                    class="form-control"
+                    formControlName="firstName">
+            </div>
+
+            <div
+                style="flex: 45%"
+                class="mx-2">
+                <label>
+                    Last name
+                </label>
+                <input
+                    [inputMask]="maxLengthMask"
+                    [ngClass]="{ invalid: form.get('lastName').errors }"
+                    (input)="onInputChange()"
+                    type="text"
+                    placeholder="Kowalski"
+                    class="form-control"
+                    formControlName="lastName">
+            </div>
+
+            <div
+                style="flex: 45%"
+                class="mx-2 my-2">
+                <label>
+                    E-mail
+                </label>
+                <input
+                    [ngClass]="{ invalid: form.get('email').errors }"
+                    (input)="onInputChange()"
+                    type="text"
+                    placeholder="jan.kowalski@gmail.com"
+                    class="form-control"
+                    formControlName="email">
+            </div>
+
+            <div
+                style="flex: 45%"
+                class="mx-2">
+                <label>
+                    Date of birth
+                </label>
+                <input
+                    [ngClass]="{ invalid: form.get('birthday').errors }"
+                    (input)="onInputChange()"
+                    class="form-control"
+                    type="date"
+                    formControlName="birthday">
+            </div>
+
+            <div
+                style="flex: 45%"
+                class="mx-2 my-2">
+                <label>
+                    Voivodeship
+                </label>
+                <select
+                    [ngClass]="{ invalid: form.get('voivodeship').errors }"
+                    name="voivodeship"
+                    class="form-control"
+                    formControlName="voivodeship"
+                    (change)="onInputChange()">
+                    <option
+                        *ngFor="let voivodeship of voivodeships"
+                        [value]="voivodeship">
+                        {{ voivodeship }}
+                    </option>
+                </select>
+            </div>
+
+            <div
+                style="flex: 45%"
+                class="mx-2"
+                *ngIf="form.get('voivodeship').value">
+                <label>
+                    City
+                </label>
+                <select
+                    [ngClass]="{ invalid: form.get('city').errors }"
+                    formControlName="city"
+                    class="form-control"
+                    (change)="onInputChange()">
+                    <option
+                        *ngFor="let city of cities[form.get('voivodeship').value]"
+                        [value]="city">
+                        {{ city }}
+                    </option>
+                </select>
+            </div>
+
+            <div
+                class="mx-2"
+                style="flex: 45%"
+                *ngIf="form.get('city').value">
+                <label>
+                    Address
+                </label>
+                <input
+                    [inputMask]="maxLengthWithDigitsMask"
+                    [ngClass]="{ invalid: form.get('address').errors }"
+                    (input)="onInputChange()"
+                    class="form-control"
+                    type="text"
+                    formControlName="address">
+            </div>
+
+            <div
+                class="mx-2"
+                style="flex: 45%"
+                *ngIf="form.get('city').value">
+                <label>
+                    Postal code
+                </label>
+                <input
+                    [inputMask]="postalCodeMask"
+                    [ngClass]="{ invalid: form.get('postalCode').errors }"
+                    (input)="onInputChange()"
+                    class="form-control"
+                    type="text"
+                    formControlName="postalCode">
+            </div>
+        </div>
+
+        <mat-divider class="my-2"></mat-divider>
+
+        <div class="d-flex mt-3 justify-content-center">
+            <button
+                mat-raised-button
+                color="primary"
+                [disabled]="!isFormCorrect"
+                type="submit"
+                (click)="onSubmit()">
+                Submit
+            </button>
+        </div>
+    </form>
+
+    <table
+        class="my-4 w-100 table table-light"
+        *ngIf="isFormSubmitted">
+        <thead>
+            <tr>
+                <th colspan="2">Your data</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>First name</td>
+                <td>{{ formData.firstName }}</td>
+            </tr>
+    
+            <tr>
+                <td>Last name</td>
+                <td>{{ formData.lastName }}</td>
+            </tr>
+    
+            <tr>
+                <td>E-mail</td>
+                <td>{{ formData.email }}</td>
+            </tr>
+    
+            <tr>
+                <td>Date of birth</td>
+                <td>{{ formData.birthday }}</td>
+            </tr>
+    
+            <tr>
+                <td>Voivodeship</td>
+                <td>{{ formData.voivodeship }}</td>
+            </tr>
+    
+            <tr>
+                <td>City</td>
+                <td>{{ formData.city }}</td>
+            </tr>
+    
+            <tr>
+                <td>Address</td>
+                <td>{{ formData.address }}</td>
+            </tr>
+    
+            <tr>
+                <td>Postal code</td>
+                <td>{{ formData.postalCode }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

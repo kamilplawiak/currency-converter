@@ -19,7 +19,8 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatDividerModule } from '@angular/material/divider';
 import { ContactComponent } from './contact/contact.component';
-import { InputMaskModule } from '@ngneat/input-mask'
+import { InputMaskModule } from '@ngneat/input-mask';
+import { ContactPureComponent } from './contact-pure/contact-pure.component'
  
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { InputMaskModule } from '@ngneat/input-mask'
     HeaderComponent,
     ConverterComponent,
     ProfileComponent,
-    ContactComponent
+    ContactComponent,
+    ContactPureComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,12 @@
+input.invalid.ng-touched, select.invalid.ng-touched {
+    border-color: red;
+    color: red;
+}
+
+table {
+    text-align: center;
+}
+
+.form-control:hover {
+    color: black;
+}
