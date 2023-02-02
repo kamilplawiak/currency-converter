@@ -33,11 +33,11 @@ export class ContactPureComponent {
 
 
   maxLengthMask = createMask({
-    placeholder: ' ',
+    placeholder: null,
     regex: `[a-zA-ZąęłżźńóśĄĘŁŻŹŃÓŚ ]{1,24}`
   });
   maxLengthWithDigitsMask = createMask({
-    placeholder: ' ',
+    placeholder: null,
     regex: `[0-9a-zA-ZąęłżźńóśĄĘŁŻŹŃÓŚ ]{1,24}`
   });
   postalCodeMask = createMask({

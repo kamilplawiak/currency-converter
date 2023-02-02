@@ -7,6 +7,7 @@ table {
     text-align: center;
 }
 
-.form-control:hover {
-    color: black;
+
+:hover::placeholder {
+    color: #000 !important;
 }
